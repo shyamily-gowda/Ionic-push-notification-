@@ -3,6 +3,11 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
+import { isCordovaAvailable } from '../common/is-cordova-available';
+import { oneSignalAppId, sender_id } from '../config';
+
+
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
@@ -16,7 +21,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private oneSignal: OneSignal) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -33,6 +38,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      if (isCordovaAvailable()){
+        this.oneSignal.startInit(oneSignalAppId, sender_id);
+        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+        this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
+        this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
+        this.oneSignal.endInit();
+      }
     });
   }
 
@@ -41,4 +54,13 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  private onPushReceived(payload: OSNotificationPayload) {
+    alert('Push recevied:' + payload.body);
+  }
+  
+  private onPushOpened(payload: OSNotificationPayload) {
+    alert('Push opened: ' + payload.body);
+  }
+  
 }
