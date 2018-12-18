@@ -27,7 +27,8 @@ ionic serve
 ```
 
 ## Step 5: Install Android and/or iOS Tools and SDKs
-In order to test this application, you should install Android and iOS tools and SDKs on your machine. Since Ionic is based on Cordova, Cordova provides a very useful guide for installing the requirements for [Android platform](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#installing-the-requirements) and [iOS platform] (https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#installing-the-requirements)
+In order to test this application, you should install Android and iOS tools and SDKs on your machine. Since Ionic is based on Cordova, Cordova provides a very useful guide for installing the requirements for
+[Android platform] (https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#installing-the-requirements) and [iOS platform] (https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#installing-the-requirements)
 
 ## Step 6: Add platforms
 ```
